@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Обязательно для мобильных устройств: запрет масштабирования -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2AABEE" />
+  <title>CalBot — Дневник питания</title>
+
+  <!-- Telegram Web App SDK — подключаем первым, до всего остального -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Основные стили -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Главный контейнер приложения -->
+  <div class="app" id="app">
+
+    <!-- Шапка: день недели + дата -->
+    <header class="header">
+      <span class="header__icon">📅</span>
+      <span class="header__date" id="headerDate">Загрузка...</span>
+    </header>
+
+    <!-- Основная прокручиваемая область -->
+    <main class="main" id="main">
+
+      <!-- Карточка с кольцом прогресса калорий -->
+      <div class="card progress-card">
+        <div class="ring-wrapper">
+          <!-- SVG-кольцо прогресса. Управляется из app.js -->
+          <svg class="ring" viewBox="0 0 160 160" width="160" height="160" id="progressRing">
+            <!-- Серая дорожка (фон кольца) -->
+            <circle
+              class="ring__track"
+              cx="80" cy="80" r="65"
+              fill="none"
+              stroke-width="12"
+            />
+            <!-- Цветная заполненная дуга -->
+            <circle
+              class="ring__fill"
+              cx="80" cy="80" r="65"
+              fill="none"
+              stroke-width="12"
+              stroke-linecap="round"
+              stroke-dasharray="408.41"
+              stroke-dashoffset="408.41"
+              transform="rotate(-90 80 80)"
+              id="ringFill"
+            />
+          </svg>
+
+          <!-- Текст внутри кольца -->
+          <div class="ring__center">
+            <span class="ring__calories" id="ringCalories">0</span>
+            <span class="ring__label">из <span id="ringTarget">1600</span> ккал</span>
+          </div>
+        </div>
+
+        <!-- Текст под кольцом: осталось / перебор -->
+        <p class="ring__status" id="ringStatus">Осталось: 1600 ккал</p>
+      </div>
+
+      <!-- Плитки КБЖУ: Белки / Жиры / Углеводы -->
+      <div class="kbju-grid">
+        <div class="kbju-tile kbju-tile--protein">
+          <span class="kbju-tile__icon">🥩</span>
+          <span class="kbju-tile__value" id="totalProtein">0</span>
+          <span class="kbju-tile__unit">г</span>
+          <span class="kbju-tile__label">Белки</span>
+        </div>
+        <div class="kbju-tile kbju-tile--fat">
+          <span class="kbju-tile__icon">🧈</span>
+          <span class="kbju-tile__value" id="totalFat">0</span>
+          <span class="kbju-tile__unit">г</span>
+          <span class="kbju-tile__label">Жиры</span>
+        </div>
+        <div class="kbju-tile kbju-tile--carbs">
+          <span class="kbju-tile__icon">🍞</span>
+          <span class="kbju-tile__value" id="totalCarbs">0</span>
+          <span class="kbju-tile__unit">г</span>
+          <span class="kbju-tile__label">Углеводы</span>
+        </div>
+      </div>
+
+      <!-- Блоки приёмов пищи. Генерируются динамически из app.js -->
+      <div id="mealsContainer"></div>
+
+    </main>
+
+    <!-- Фиксированная кнопка внизу -->
+    <div class="bottom-bar">
+      <button class="add-btn" id="addBtn" onclick="openBot()">
+        ＋ Добавить через бот
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Сначала данные, потом логика приложения -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
