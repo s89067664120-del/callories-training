@@ -27,20 +27,47 @@ if (tg) {
 }
 
 /* -----------------------------------------------------------
+   loadDiaryData — загружает данные из API бота.
+   Если user_id недоступен или API недоступен — возвращает MOCK_DATA.
+   ----------------------------------------------------------- */
+async function loadDiaryData() {
+  try {
+    const userId = tg?.initDataUnsafe?.user?.id;
+    if (!userId) return MOCK_DATA;
+
+    const today = new Date().toISOString().split('T')[0];
+    const url = `${CONFIG.API_URL}?user_id=${userId}&date=${today}`;
+
+    const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!response.ok) return MOCK_DATA;
+
+    const data = await response.json();
+    // Проверяем что данные валидны
+    if (!data.meals || !data.user) return MOCK_DATA;
+    return data;
+  } catch (err) {
+    return MOCK_DATA;
+  }
+}
+
+/* -----------------------------------------------------------
    Запуск приложения после загрузки DOM
    ----------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // Устанавливаем дату в шапке
   document.getElementById('headerDate').textContent = formatTodayRu();
 
+  // Загружаем данные (реальные или тестовые)
+  const data = await loadDiaryData();
+
   // Считаем итоги
-  const totals = calcTotals(MOCK_DATA.meals);
-  const target = MOCK_DATA.user.targetCalories;
+  const totals = calcTotals(data.meals);
+  const target = data.user.targetCalories;
 
   // Рендерим все секции
   renderRing(totals.calories, target);
   renderKBJU(totals);
-  renderMeals(MOCK_DATA.meals);
+  renderMeals(data.meals);
 
   // Кольцо анимируем с небольшой задержкой — выглядит эффектно
   setTimeout(() => animateRing(totals.calories, target), 200);

@@ -13,7 +13,8 @@
    BOT_USERNAME — @username вашего бота без символа @
    ----------------------------------------------------------- */
 const CONFIG = {
-  BOT_USERNAME: 'my_cbot',  // username бота без @
+  BOT_USERNAME: 'my_cbot',                                    // username бота без @
+  API_URL:      'https://calbot-0dyo.onrender.com/api/diary', // URL API бота на Render
 };
 
 /* -----------------------------------------------------------
