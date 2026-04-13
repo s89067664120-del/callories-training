@@ -32,7 +32,12 @@ if (tg) {
    ----------------------------------------------------------- */
 async function loadDiaryData() {
   try {
-    const userId = tg?.initDataUnsafe?.user?.id;
+    // Если мы внутри Telegram но user.id ещё не пришёл — ждём и повторяем
+    let userId = tg?.initDataUnsafe?.user?.id;
+    if (!userId && tg) {
+      await new Promise(r => setTimeout(r, 500));
+      userId = tg?.initDataUnsafe?.user?.id;
+    }
     if (!userId) return MOCK_DATA;
 
     const today = new Date().toISOString().split('T')[0];
