@@ -328,6 +328,17 @@ body {
   flex-shrink: 0;
 }
 
+.meal-item__name {
+  flex: 1;
+}
+
+.meal-item__kcal {
+  font-size: 13px;
+  color: var(--hint);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 /* Пустой блок приёма пищи */
 .meal-empty {
   padding: 12px var(--pad);

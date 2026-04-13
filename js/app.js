@@ -162,7 +162,11 @@ function renderMeals(meals) {
     let itemsHTML = '';
     if (hasEntries) {
       itemsHTML = meal.entries
-        .map(entry => `<div class="meal-item">${escapeHtml(entry.name)}</div>`)
+        .map(entry => `
+          <div class="meal-item">
+            <span class="meal-item__name">${escapeHtml(entry.name)}</span>
+            <span class="meal-item__kcal">${entry.calories} ккал</span>
+          </div>`)
         .join('');
     } else {
       itemsHTML = `<div class="meal-empty">Ещё не добавлено</div>`;
