@@ -27,6 +27,11 @@ const MOCK_DATA = {
     targetCalories: 1600,  // Дневная норма калорий
   },
 
+  water: {
+    glasses: 3,
+    goal: 8,
+  },
+
   meals: {
     breakfast: {
       name: 'Завтрак',

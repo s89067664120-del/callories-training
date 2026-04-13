@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Рендерим все секции
   renderRing(totals.calories, target);
   renderKBJU(totals);
+  renderWater(data.water);
   renderMeals(data.meals);
 
   // Кольцо анимируем с небольшой задержкой — выглядит эффектно
@@ -138,6 +139,15 @@ function renderKBJU(totals) {
   document.getElementById('totalProtein').textContent = totals.protein;
   document.getElementById('totalFat').textContent     = totals.fat;
   document.getElementById('totalCarbs').textContent   = totals.carbs;
+}
+
+/* -----------------------------------------------------------
+   renderWater — заполняет плитку воды
+   ----------------------------------------------------------- */
+function renderWater(water) {
+  if (!water) return;
+  document.getElementById('totalWater').textContent = water.glasses;
+  document.getElementById('waterGoal').textContent  = `/ ${water.goal}`;
 }
 
 /* -----------------------------------------------------------

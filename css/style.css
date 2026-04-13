@@ -28,6 +28,8 @@
   --fat-fg:      #FF9500;
   --carbs-bg:    rgba(52, 199, 89, 0.12);
   --carbs-fg:    #34C759;
+  --water-bg:    rgba(0, 122, 255, 0.12);
+  --water-fg:    #007AFF;
 
   /* Отступы и радиусы */
   --radius:      16px;
@@ -256,10 +258,12 @@ body {
 .kbju-tile--protein .kbju-tile__value { color: var(--protein-fg); }
 .kbju-tile--fat     .kbju-tile__value { color: var(--fat-fg); }
 .kbju-tile--carbs   .kbju-tile__value { color: var(--carbs-fg); }
+.kbju-tile--water   .kbju-tile__value { color: var(--water-fg); }
 
 .kbju-tile--protein { border-top: 3px solid var(--protein-fg); }
 .kbju-tile--fat     { border-top: 3px solid var(--fat-fg); }
 .kbju-tile--carbs   { border-top: 3px solid var(--carbs-fg); }
+.kbju-tile--water   { border-top: 3px solid var(--water-fg); }
 
 /* --- Блок приёма пищи --- */
 .meal-block {
